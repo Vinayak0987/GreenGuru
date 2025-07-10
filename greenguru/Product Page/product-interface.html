@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenGuru - Eco-Friendly Store</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #fefffe 50%, #ddffd1 100%);
+            background-size: cover;
+          /* Cover the entire viewport */
+            background-repeat: no-repeat;
+            /* Do not repeat the image */
+            background-attachment: fixed;
+            /* Keep the background fixed while scrolling */
+            background-position: center;
+            /* Center the background image */
+        }
+
+        nav {
+            background-color: rgba(76, 175, 80, 0.9);
+            /* Semi-transparent green */
+            padding: 10px 20px;
+            /* Added padding */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            /* To enable z-index */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            /* Slight shadow for depth */
+            z-index: 1000;
+            /* Ensure it stays on top */
+        }
+
+        nav h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+        }
+
+        nav ul li {
+            position: relative;
+            /* Position for the hover effect */
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 12px;
+            /* Padding around the link for a larger clickable area */
+            transition: background-color 0.3s;
+            /* Smooth transition for background color */
+            border-radius: 4px;
+            /* Slightly rounded corners for buttons */
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            /* Light background on hover */
+            text-decoration: underline;
+            /* Underline on hover */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            /* Slightly transparent background */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            /* Rounded corners for the container */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        .product-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.03);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .product-title {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .star {
+            color: gold;
+            margin-right: 2px;
+        }
+
+        .sustainability-score {
+            background-color: #e0e0e0;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sticky My Cart Button Styles */
+        #myCartButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            /* Increased padding for larger button */
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            z-index: 1000;
+            /* Ensure it's on top of other elements */
+            font-size: 16px;
+            /* Increase font size */
+        }
+
+        #myCartButton:hover {
+            background-color: #030202;
+            /* Change color on hover */
+            transform: translateY(-2px);
+        }
+
+        #myCartButton:active {
+            background-color: #000000;
+            /* Darker green when clicked */
+            transform: translateY(0);
+            /* Reset the transform on click */
+        }
+
+        .product-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .product-link:hover .product-card {
+            transform: scale(1.03);
+        }
+
+
+    /* Popup Styles */
+    #productPopup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2000;
+        width: 70%;
+        max-width: 800px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        animation: fadeIn 0.3s;
+    }
+
+    #popupOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1500;
+    }
+
+    .popup-content {
+        display: flex;
+        gap: 20px;
+    }
+
+    .popup-image {
+        flex: 1;
+        max-width: 300px;
+    }
+
+    .popup-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .popup-details {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .popup-title {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .popup-price {
+        font-size: 1.2em;
+        color: #4CAF50;
+        margin-bottom: 15px;
+    }
+
+    .popup-description {
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #999;
+        transition: color 0.2s;
+    }
+
+    .popup-close:hover {
+        color: #333;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -55%);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="popupOverlay"></div>
+    <div id="productPopup">
+        <button class="popup-close" onclick="closePopup()">✖</button>
+        <div class="popup-content">
+            <div class="popup-image">
+                <img src="" alt="Product Image" id="popupProductImage" />
+            </div>
+            <div class="popup-details">
+                <div>
+                    <h2 class="popup-title" id="popupProductName"></h2>
+                    <p class="product-rating" id="popupProductrating"></p>  
+                    <div class="popup-price" id="popupProductPrice"></div>
+                    <p class="popup-description" id="popupProductDescription"></p>
+                   
+                    <!-- <p class="sustainability-score" id="popupProductscore"></p> -->
+                </div>
+                <button class="btn" id="popupAddToCartButton">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+
+    <nav>
+        <h1>GreenGuru</h1>
+        <ul>
+            <li><a href="../Home page/index.html">Home</a></li>
+            <li><a href="product-interface.html">Products</a></li>
+            <li><a href="../Cart Page/cart.html">Cart</a></li>
+            <li><a href="../About page/about.html">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Welcome to GreenGuru - Your Eco-Friendly Store</h1>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search for eco-friendly products...">
+            <button class="btn" id="voice-search-button">🎤</button>
+            <button class="btn" id="clear-button">Clear</button>
+        </div>
+        <div class="product-grid" id="product-grid">
+            <!-- Products will be dynamically rendered here -->
+        </div>
+       
+    </div>
+
+    <footer>
+        <p>&copy; 2024 GreenGuru. All rights reserved. | <a href="#">Privacy Policy</a></p>
+    </footer>
+
+    <button id="myCartButton" onclick="window.location.href='../Cart Page/cart.html'">My Cart 🛒</button>
+
+    <script>
+        // // Initialize cart from local storage
+        // let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Function to update the cart icon (optional)
+        function updateCartButton() {
+            document.getElementById('myCartButton').textContent = `My Cart 🛒 `;
+        }
+
+        // Function to add item to the cart
+        // Function to add item to the cart
+        async function addToCart(productIndexNo) {
+            const response = await fetch('save_cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    user_id: 1, // Replace with session user ID
+                    product_index_no: productIndexNo,
+                    quantity: 1, // Set the default quantity to 1, or increment based on existing value
+                }),
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Product added to cart!');
+            } else {
+                alert('Error adding product to cart: ' + result.error);
+            }
+        }
+
+
+        // Render products with Add to Cart button
+        function renderProducts(products) {
+            const grid = document.getElementById("product-grid");
+            grid.innerHTML = ''; // Clear any existing content
+
+            products.forEach(product => {
+                const productCard = document.createElement('a');
+                productCard.href = `productDetails.html?id=${product.id}`;
+                productCard.classList.add('product-link');
+
+                const card = document.createElement('div');
+                card.classList.add('product-card');
+
+                const image = document.createElement('img');
+                image.classList.add('product-image');
+                image.src = product.image;
+
+                const title = document.createElement('div');
+                title.classList.add('product-title');
+                title.textContent = product.name;
+
+                const price = document.createElement('div');
+                price.classList.add('product-price');
+                price.textContent = `$${product.price}`;
+
+                const rating = document.createElement('div');
+                rating.classList.add('product-rating');
+                for (let i = 0; i < 5; i++) {
+                    const star = document.createElement('span');
+                    star.classList.add('star');
+                    star.textContent = i < Math.round(product.rating) ? '★' : '☆';
+                    rating.appendChild(star);
+                }
+
+                // Add Sustainability Score
+                const sustainabilityScore = document.createElement('div');
+                sustainabilityScore.classList.add('sustainability-score');
+                sustainabilityScore.textContent = `Sustainability Score: ${product.sustainability_score}/10`;
+
+                // Add "Add to Cart" Button
+                const addToCartButton = document.createElement('button');
+                addToCartButton.classList.add('btn');
+                addToCartButton.textContent = 'Add to Cart';
+                addToCartButton.onclick = function (event) {
+                    event.preventDefault();  // Prevent default anchor behavior
+                    addToCart(product.product_index_no);  // Pass the product_index_no to the function
+                };
+
+                // Append elements to the card
+                card.appendChild(image);
+                card.appendChild(title);
+                card.appendChild(price);
+                card.appendChild(rating);
+                card.appendChild(sustainabilityScore);
+                card.appendChild(addToCartButton);
+
+                productCard.appendChild(card);
+                grid.appendChild(productCard);
+            });
+        }
+
+        const voiceSearchButton = document.getElementById("voice-search-button");
+        const searchInput = document.querySelector(".search-input");
+
+
+    voiceSearchButton.addEventListener("click", () => {
+        // Check if the browser supports SpeechRecognition
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition; //used this api
+
+        if (!SpeechRecognition) {
+            alert("Voice search is not supported in this browser. Please use Chrome or Edge.");
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = "en-US";
+        recognition.interimResults = false;
+
+        recognition.onstart = () => {
+            alert("Voice search activated. Please speak your query.");
+        };
+
+        recognition.onresult = (event) => {
+            const query = event.results[0][0].transcript;
+            searchInput.value = query;
+            handleSearch(query); // Call the search function with the recognized query
+        };
+
+        recognition.onerror = (event) => {
+            alert("Voice search failed. Please try again.");
+            console.error("Voice search error:", event.error);
+        };
+
+        recognition.start();
+    });
+        let products = []; // Global array to store products
+
+// Fetch products from backend (assuming 'getProducts.php' is set up)
+fetch('getProducts.php')
+    .then(response => response.json())
+    .then(data => {
+        products = data; // Store fetched products globally
+        renderProducts(products); // Render products on page load
+    })
+    .catch(error => console.error('Error fetching products:', error));
+
+// Function to handle search dynamically
+function handleSearch() {
+    const searchQuery = document.querySelector('.search-input').value.toLowerCase();
+    const filteredProducts = products.filter(product =>
+        product.name.toLowerCase().includes(searchQuery)
+    );
+    renderProducts(filteredProducts);
+}
+
+// Add event listener to the search input
+document.querySelector('.search-input').addEventListener('input', handleSearch);
+
+
+
+        // Add event listener for search button
+        // document.getElementById("search-button").addEventListener("click", handleSearch);
+
+        document.getElementById("clear-button").addEventListener("click", () => {
+            document.querySelector('.search-input').value = '';
+            renderProducts(products);
+        });
+        // Voice search functionality
+        // if (annyang) {
+        //     const commands = {
+        //         'search for *query': function (query) {
+        //             document.querySelector('.search-input').value = query;
+        //             handleSearch();
+        //         }
+        //     };
+
+        //     annyang.addCommands(commands);
+
+        //     document.getElementById("voice-search-button").addEventListener("click", function () {
+        //         annyang.start();
+        //         alert("Voice search activated. Say 'search for' followed by your query.");
+        //     });
+        // }
+
+        // Fetch products from backend (assuming 'getProducts.php' is set up)
+        fetch('getProducts.php')
+            .then(response => response.json())
+            .then(data => {
+                renderProducts(data);  // Render products fetched from backend
+            })
+            .catch(error => console.error('Error fetching products:', error));
+
+        // Update cart button on page load
+        updateCartButton();
+
+        //popup window
+ const popupOverlay = document.getElementById("popupOverlay");
+    const productPopup = document.getElementById("productPopup");
+
+    
+    
+    function openPopup(product) {
+    // Set the content for the popup
+    document.getElementById("popupProductImage").src = product.image;
+    document.getElementById("popupProductName").textContent = product.name;
+
+    // Create and display star rating in the popup
+    const ratingContainer = document.getElementById("popupProductrating");
+    ratingContainer.innerHTML = ''; // Clear any existing content
+    for (let i = 0; i < 5; i++) {
+        const star = document.createElement('span');
+        star.classList.add('star');
+        star.textContent = i < Math.round(product.rating) ? '★' : '☆';
+        ratingContainer.appendChild(star);
+    }
+
+    document.getElementById("popupProductPrice").textContent = `$${product.price}`;
+    document.getElementById("popupProductDescription").textContent = product.DESCRIPTION;
+
+    // Set the Add to Cart button functionality
+    const addToCartButton = document.getElementById("popupAddToCartButton");
+    addToCartButton.onclick = function () {
+        addToCart(product.product_index_no); // Use existing addToCart function
+    };
+
+    // Show the popup
+    popupOverlay.style.display = "block";
+    productPopup.style.display = "block";
+}
+
+    function closePopup() {
+        popupOverlay.style.display = "none";
+        productPopup.style.display = "none";
+    }
+
+    // Modify the renderProducts function to include the popup trigger
+    function renderProducts(products) {
+        const grid = document.getElementById("product-grid");
+        grid.innerHTML = ''; // Clear any existing content
+
+        products.forEach(product => {
+            const productCard = document.createElement('a');
+            productCard.href = `#`; // Prevent navigation
+            productCard.classList.add('product-link');
+            productCard.onclick = function (event) {
+                event.preventDefault(); // Prevent link behavior
+                openPopup(product); // Open popup with product details
+            };
+
+            const card = document.createElement('div');
+            card.classList.add('product-card');
+
+            const image = document.createElement('img');
+            image.classList.add('product-image');
+            image.src = product.image;
+
+            const title = document.createElement('div');
+            title.classList.add('product-title');
+            title.textContent = product.name;
+
+            const price = document.createElement('div');
+            price.classList.add('product-price');
+            price.textContent = `$${product.price}`;
+
+            const rating = document.createElement('div');
+                rating.classList.add('product-rating');
+                for (let i = 0; i < 5; i++) {
+                    const star = document.createElement('span');
+                    star.classList.add('star');
+                    star.textContent = i < Math.round(product.rating) ? '★' : '☆';
+                    rating.appendChild(star);
+                }
+            
+         
+
+            // Add Sustainability Score
+            const sustainabilityScore = document.createElement('div');
+            sustainabilityScore.classList.add('sustainability-score');
+            sustainabilityScore.textContent = `Sustainability Score: ${product.sustainability_score}/10`;
+
+            // Add "Add to Cart" Button
+            const addToCartButton = document.createElement('button');
+            addToCartButton.classList.add('btn');
+            addToCartButton.textContent = 'Add to Cart';
+            addToCartButton.onclick = function (event) {
+                event.stopPropagation(); // Prevent triggering popup
+                addToCart(product.product_index_no);
+            };
+
+            // Append elements to the card
+            card.appendChild(image);
+            card.appendChild(title);
+            card.appendChild(price);
+            card.appendChild(rating);
+            card.appendChild(sustainabilityScore);
+            card.appendChild(addToCartButton);
+            // card.appendChild(description);
+
+            productCard.appendChild(card);
+            grid.appendChild(productCard);
+        });
+    }
+
+    </script>
+
+</body>
+
+</html>

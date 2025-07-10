@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="product-grid">
+        <div class="product-images">
+            <div class="product-image">
+                <img id="main-image" src="/placeholder.svg" alt="Product Image">
+                <button class="image-nav prev">&lt;</button>
+                <button class="image-nav next">&gt;</button>
+            </div>
+            <div class="thumbnails">
+                <img class="thumbnail" src="/placeholder.svg" alt="Thumbnail 1">
+                <img class="thumbnail" src="/placeholder.svg" alt="Thumbnail 2">
+                <img class="thumbnail" src="/placeholder.svg" alt="Thumbnail 3">
+                <img class="thumbnail" src="/placeholder.svg" alt="Thumbnail 4">
+            </div>
+        </div>
+        <div class="product-info">
+            <h1 class="product-title">Product Title</h1>
+            <div class="product-rating">
+                <div class="stars"></div>
+                <span>(128 reviews)</span>
+            </div>
+            <p class="product-price">$0.00</p>
+            <p class="product-description">Product Description</p>
+            <div class="quantity-selector">
+                <button class="btn btn-outline" id="decrease">-</button>
+                <span id="quantity">1</span>
+                <button class="btn btn-outline" id="increase">+</button>
+            </div>
+            <button class="btn" id="add-to-cart">Add to Cart</button>
+            <div>
+                <button class="btn btn-outline">Add to Wishlist</button>
+                <button class="btn btn-outline">Share</button>
+            </div>
+            <span class="sustainability-score">Sustainability Score: 0/10</span>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainImage = document.getElementById('main-image');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const productTitle = document.querySelector('.product-title');
+            const productPrice = document.querySelector('.product-price');
+            const productDescription = document.querySelector('.product-description');
+            const sustainabilityScore = document.querySelector('.sustainability-score');
+            const productRatingStars = document.querySelector('.product-rating .stars');
+    
+            // Fetch product data from the API
+            fetch('http://localhost:5000/api/products') // Adjust the URL to your API endpoint
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Assuming data is an array and you want the first product
+                    const product = data[0]; // Adjust this according to your API response structure
+    
+                    // Update product details in the HTML
+                    mainImage.src = product.image; // Assuming product.image holds the image URL
+                    productTitle.textContent = product.name; // Assuming product.name holds the product name
+                    productPrice.textContent = `$${product.price}`; // Assuming product.price holds the price
+                    productDescription.textContent = product.description; // Update the product description
+                    sustainabilityScore.textContent = `Sustainability Score: ${product.sustainabilityScore}/10`; // Update sustainability score
+    
+                    // Update stars for rating
+                    const rating = product.rating; // Assuming product.rating holds the rating value
+                    for (let i = 0; i < 5; i++) {
+                        const star = document.createElement('span');
+                        star.className = 'star';
+                        star.textContent = i < rating ? '★' : '☆'; // Filled star or empty star
+                        productRatingStars.appendChild(star);
+                    }
+    
+                    // Update thumbnails (if necessary)
+                    thumbnails.forEach((thumbnail, index) => {
+                        thumbnail.src = product.images[index] || '/placeholder.svg'; // Replace with actual image URLs
+                        thumbnail.addEventListener('click', () => updateMainImage(index));
+                    });
+                })
+                .catch(error => console.error('Error fetching product data:', error));
+        });
+    
+        function updateMainImage(index) {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImage = document.getElementById('main-image');
+            mainImage.src = thumbnails[index].src;
+        }
+    </script>
+    
+    <!-- ... Other elements remain unchanged ... -->
+</div>
